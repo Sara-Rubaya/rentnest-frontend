@@ -40,10 +40,10 @@ export default function Navbar() {
             </>
           ) : (
             <>
-              <Link href="/auth/login" className="hover:text-teal">
+              <Link href="/auth/login" className="hover:text-ink">
                 Log in
               </Link>
-              <Link href="/auth/register" className="rounded-sm bg-teal px-4 py-2 text-white focus-ring hover:bg-teal-dark">
+              <Link href="/auth/register" className="mt-2 rounded-sm bg-ink px-3 py-2.5 text-left text-white hover:bg-ink/90">
                 Get started
               </Link>
             </>

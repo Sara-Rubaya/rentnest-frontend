@@ -58,7 +58,7 @@ export default function PayForRequestPage() {
       <div className="mt-6 rounded-sm border border-ink/10 bg-white p-5">
         <p className="font-medium text-ink">{request.property?.title}</p>
         <p className="text-sm text-ink/60">{request.property?.location}</p>
-        <p className="mt-3 font-display text-2xl italic text-teal-dark">
+        <p className="mt-3 font-display text-2xl italic text-ink-dark">
           ৳{request.property?.price.toLocaleString()} <span className="text-sm font-normal text-ink/50">/ month</span>
         </p>
       </div>
@@ -68,7 +68,7 @@ export default function PayForRequestPage() {
       <button
         onClick={startCheckout}
         disabled={redirecting}
-        className="mt-6 w-full rounded-sm bg-teal px-5 py-3 font-medium text-white hover:bg-teal-dark disabled:opacity-60"
+        className="mt-6 w-full rounded-sm bg-ink px-5 py-3 font-medium text-white hover:bg-ink-dark disabled:opacity-60"
       >
         {redirecting ? "Redirecting to Stripe…" : "Pay now"}
       </button>

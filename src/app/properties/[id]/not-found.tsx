@@ -9,7 +9,7 @@ export default function PropertyNotFound() {
       </p>
       <Link
         href="/properties"
-        className="mt-6 rounded-sm bg-teal px-5 py-2.5 text-sm font-medium text-white focus-ring hover:bg-teal-dark"
+        className="mt-6 rounded-sm bg-ink px-5 py-2.5 text-sm font-medium text-white focus-ring hover:bg-ink-dark"
       >
         Back to listings
       </Link>

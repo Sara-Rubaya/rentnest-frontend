@@ -27,14 +27,14 @@ export default function ReviewForm({ rentalRequestId }: { rentalRequestId: strin
   }
 
   if (submitted) {
-    return <p className="mt-3 text-sm text-teal-dark">Review submitted — thank you!</p>;
+    return <p className="mt-3 text-sm text-ink-dark">Review submitted — thank you!</p>;
   }
 
   if (!open) {
     return (
       <button
         onClick={() => setOpen(true)}
-        className="mt-4 rounded-sm border border-teal px-4 py-2 text-sm font-medium text-teal-dark hover:bg-teal-light"
+        className="mt-4 rounded-sm border border-ink px-4 py-2 text-sm font-medium text-ink-dark hover:bg-ink-light"
       >
         Leave a review
       </button>
@@ -70,7 +70,7 @@ export default function ReviewForm({ rentalRequestId }: { rentalRequestId: strin
         <button
           onClick={submit}
           disabled={submitting}
-          className="rounded-sm bg-teal px-4 py-2 text-sm font-medium text-white hover:bg-teal-dark disabled:opacity-60"
+          className="rounded-sm bg-ink px-4 py-2 text-sm font-medium text-white hover:bg-ink-dark disabled:opacity-60"
         >
           {submitting ? "Submitting…" : "Submit review"}
         </button>

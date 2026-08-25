@@ -23,12 +23,12 @@ export default async function PropertyDetailsPage({ params }: { params: { id: st
       <div className="grid grid-cols-1 gap-10 lg:grid-cols-3">
         <div className="lg:col-span-2">
           <div className="grid grid-cols-4 gap-2">
-            <div className="relative col-span-4 aspect-[16/9] overflow-hidden rounded-sm bg-teal-light sm:col-span-3">
+            <div className="relative col-span-4 aspect-[16/9] overflow-hidden rounded-sm bg-ink-light sm:col-span-3">
               <Image src={images[0]} alt={property.title} fill sizes="66vw" className="object-cover" />
             </div>
             <div className="hidden grid-rows-3 gap-2 sm:col-span-1 sm:grid">
               {images.slice(1, 4).map((img, i) => (
-                <div key={i} className="relative aspect-square overflow-hidden rounded-sm bg-teal-light">
+                <div key={i} className="relative aspect-square overflow-hidden rounded-sm bg-ink-light">
                   <Image src={img} alt={`${property.title} ${i + 2}`} fill sizes="16vw" className="object-cover" />
                 </div>
               ))}
@@ -49,7 +49,7 @@ export default async function PropertyDetailsPage({ params }: { params: { id: st
 
           <div className="mt-6 flex flex-wrap gap-2">
             {property.amenities?.map((a) => (
-              <span key={a} className="rounded-sm bg-teal-light px-3 py-1 text-xs font-medium text-teal-dark">
+              <span key={a} className="rounded-sm bg-ink-light px-3 py-1 text-xs font-medium text-ink-dark">
                 {a}
               </span>
             ))}
@@ -84,7 +84,7 @@ export default async function PropertyDetailsPage({ params }: { params: { id: st
         </div>
 
         <aside className="h-fit rounded-sm border border-ink/10 bg-white p-6 lg:sticky lg:top-24">
-          <p className="font-display text-3xl italic text-teal-dark">
+          <p className="font-display text-3xl italic text-ink-dark">
             ৳{property.price.toLocaleString()}
             <span className="ml-1 text-base font-normal text-ink/50">/ month</span>
           </p>

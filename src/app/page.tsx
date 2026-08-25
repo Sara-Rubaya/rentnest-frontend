@@ -63,7 +63,7 @@ export default function HomePage() {
               </Link>
             </div>
           </div>
-          <div className="relative overflow-hidden rounded-sm border border-ink/10 bg-white p-8">
+         <div className="relative overflow-hidden rounded-sm border border-ink/10 bg-white p-8">
   {/* Decorative accent shape, tucked in the corner */}
   <div className="pointer-events-none absolute -right-16 -top-16 h-48 w-48 rounded-full bg-teal-light" />
   <div className="pointer-events-none absolute -right-8 -top-8 h-32 w-32 rounded-full bg-gold/10" />

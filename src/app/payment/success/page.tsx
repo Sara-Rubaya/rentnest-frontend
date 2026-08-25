@@ -36,7 +36,7 @@ function SuccessContent() {
 
       {status === "done" && (
         <>
-          <div className="flex h-16 w-16 items-center justify-center rounded-full bg-teal-light text-3xl text-teal-dark">
+          <div className="flex h-16 w-16 items-center justify-center rounded-full bg-ink-light text-3xl text-ink-dark">
             ✓
           </div>
           <p className="mt-6 font-display text-3xl italic text-ink">Payment successful</p>
@@ -46,7 +46,7 @@ function SuccessContent() {
           </p>
           <Link
             href="/dashboard/tenant"
-            className="mt-8 rounded-sm bg-teal px-5 py-2.5 text-sm font-medium text-white hover:bg-teal-dark"
+            className="mt-8 rounded-sm bg-ink px-5 py-2.5 text-sm font-medium text-white hover:bg-ink-dark"
           >
             Go to my dashboard
           </Link>

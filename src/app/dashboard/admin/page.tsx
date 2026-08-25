@@ -76,7 +76,7 @@ export default function AdminDashboardPage() {
             key={t.key}
             onClick={() => setTab(t.key)}
             className={`rounded-sm border p-5 text-left focus-ring ${
-              tab === t.key ? "border-teal bg-teal-light" : "border-ink/10 bg-white hover:border-ink/25"
+              tab === t.key ? "border-ink bg-ink-light" : "border-ink/10 bg-white hover:border-ink/25"
             }`}
           >
             <p className="text-xs uppercase tracking-wide text-ink/50">{t.label}</p>
@@ -122,7 +122,7 @@ export default function AdminDashboardPage() {
                         onClick={() => toggleBan(u)}
                         className={`rounded-sm px-3 py-1.5 text-xs font-medium disabled:opacity-60 ${
                           u.status === "BANNED"
-                            ? "bg-teal text-white hover:bg-teal-dark"
+                            ? "bg-ink text-white hover:bg-ink-dark"
                             : "border border-clay/30 text-clay hover:bg-clay/5"
                         }`}
                       >

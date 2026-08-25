@@ -159,7 +159,7 @@ export default function NewPropertyPage() {
         <button
           type="submit"
           disabled={submitting}
-          className="w-full rounded-sm bg-teal px-5 py-3 font-medium text-white hover:bg-teal-dark disabled:opacity-60"
+          className="w-full rounded-sm bg-ink px-5 py-3 font-medium text-white hover:bg-ink-dark disabled:opacity-60"
         >
           {submitting ? "Creating…" : "Create listing"}
         </button>

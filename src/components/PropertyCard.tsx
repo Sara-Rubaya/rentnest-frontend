@@ -10,7 +10,7 @@ export default function PropertyCard({ property }: { property: Property }) {
       href={`/properties/${property.id}`}
       className="group block overflow-hidden rounded-sm border border-ink/10 bg-white transition hover:-translate-y-0.5 hover:shadow-md focus-ring"
     >
-      <div className="relative aspect-[4/3] w-full overflow-hidden bg-teal-light">
+      <div className="relative aspect-[4/3] w-full overflow-hidden bg-ink-light">
         <Image
           src={cover}
           alt={property.title}
@@ -28,7 +28,7 @@ export default function PropertyCard({ property }: { property: Property }) {
         <p className="font-display text-lg text-ink">{property.title}</p>
         <p className="mt-1 text-sm text-ink/60">{property.location}</p>
         <div className="mt-3 flex items-center justify-between">
-          <p className="font-semibold text-teal-dark">
+          <p className="font-semibold text-ink-dark">
             ৳{property.price.toLocaleString()} <span className="font-normal text-ink/50">/ month</span>
           </p>
           <span className="text-xs uppercase tracking-wide text-ink/50">{property.type}</span>
