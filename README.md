@@ -1,69 +1,94 @@
-# RentNest Frontend
+# RentNest 🏠 — Frontend
 
-Next.js 14 (App Router) frontend for RentNest, wired directly to your
-`rentnest-backend` API (Node/Express/Prisma/PostgreSQL, Stripe Checkout).
+A modern, responsive rental property marketplace built with **Next.js 14 (App Router)**, **TypeScript**, and **Tailwind CSS**. Tenants browse and request properties, landlords manage listings and requests, and admins moderate the platform — all consuming a separate [RentNest backend API](https://github.com/your-username/rentnest-backend).
 
-## Setup
+**Live demo:** https://rentnest-frontend-dusky.vercel.app
+
+## Features
+
+- 🔍 **Public browsing** — searchable, filterable property grid with skeleton loading states
+- 🔐 **Role-based auth** — Tenant / Landlord / Admin, protected routes via Next.js Middleware
+- 📝 **Rental request flow** — request to rent, approve/reject, with optimistic UI updates
+- 💳 **Stripe Checkout** — secure payment flow with dedicated success/cancel pages
+- 🏘️ **Landlord dashboard** — create/manage listings, review incoming requests
+- 🛡️ **Admin dashboard** — user management (ban/unban), platform-wide moderation
+- ⭐ **Reviews** — tenants can rate completed stays
+- 📱 Fully responsive, accessible UI with a custom design system
+
+## Tech Stack
+
+| | |
+|---|---|
+| Framework | Next.js 14 (App Router) |
+| Language | TypeScript |
+| Styling | Tailwind CSS |
+| Auth | JWT (cookie-based, read by Middleware) |
+| Payments | Stripe Checkout |
+| Fonts | Fraunces + Inter (next/font) |
+
+## Getting Started
 
 ```bash
+git clone https://github.com/your-username/rentnest-frontend.git
+cd rentnest-frontend
 npm install
 cp .env.local.example .env.local
-# edit .env.local and point NEXT_PUBLIC_API_BASE_URL at your backend, e.g.
-# NEXT_PUBLIC_API_BASE_URL=http://localhost:5000/api
+```
+
+Edit `.env.local` and point it at your backend:
+```bash
+NEXT_PUBLIC_API_BASE_URL=http://localhost:5000/api
+```
+
+```bash
 npm run dev
 ```
 
-Make sure your backend's `CLIENT_URL` env var matches wherever this frontend
-runs (e.g. `http://localhost:3000`) — `payment.service.ts` uses it to build
-the Stripe `success_url` / `cancel_url`.
+Open [http://localhost:3000](http://localhost:3000).
 
-## How it's wired to your backend
+> Also set `CLIENT_URL` on the **backend** to match wherever this frontend runs — it's used to build Stripe's `success_url` / `cancel_url`.
 
-- **Response envelope** — every backend response is `{ success, message, meta, data }`
-  and every error is `{ success: false, message, errorDetails }`
-  (`src/utils/sendResponse.ts` / `errorHandler.ts`). `src/lib/api.ts` unwraps
-  `data` for you; use `apiWithMeta()` when you also need `meta.total` (used on
-  the `/properties` browse page for server-side pagination/filtering).
-- **Auth** — `POST /auth/register` and `POST /auth/login` return `{ user, token }`.
-  The token is stored in a cookie (not localStorage) so `middleware.ts` can
-  read it server-side to protect `/dashboard/*` routes by role.
-- **Properties** — public `GET /properties` (supports `location`, `type`,
-  `minPrice`, `maxPrice`, `search`, `page`, `limit` query params — see
-  `property.service.ts`) and `GET /properties/:id`. Landlord CRUD lives under
-  `/landlord/properties`, not `/properties`, matching `landlord.routes.ts`.
-- **Rentals** — tenants create/read via `POST /rentals` and `GET /rentals`;
-  landlords manage via `GET /landlord/requests` and
-  `PATCH /landlord/requests/:id` (`status: APPROVED | REJECTED`).
-- **Payments** — `POST /payments/create` returns a Stripe Checkout
-  `{ checkoutUrl, sessionId, payment }`; the pay page redirects the browser
-  to `checkoutUrl`. `/payment/success` reads `?session_id=` and calls
-  `GET /payments/verify/:sessionId` as a manual-confirm fallback to the
-  webhook (useful since there's no local webhook listener in dev).
-- **Admin** — `GET/PATCH /admin/users` (`status: ACTIVE | BANNED`, not a
-  boolean), `GET /admin/properties`, `GET /admin/rentals`.
-- **Types** (`src/types/index.ts`) mirror `prisma/schema.prisma` exactly —
-  e.g. `isAvailable` not `available`, nested `landlord`/`property`/`tenant`
-  summaries, `PaymentStatus` = `PENDING | COMPLETED | FAILED`.
-
-## What's stubbed / left for you
-
-- **Image upload** — the "new listing" form takes comma-separated image
-  URLs for now (there's no file upload endpoint in the backend). Swap in a
-  real uploader if you add one.
-- **Toast notifications** — a small custom `ToastProvider`
-  (`src/lib/toast-context.tsx`) instead of an external library, to keep
-  `npm install` light. Swap for `react-hot-toast` if you prefer.
-- **Categories** — `GET /categories` exists on the backend but isn't wired
-  into the listing form yet; add a `<select>` there if you want tenants to
-  filter by category too.
-
-## Project structure
+## Project Structure
 
 ```
 src/
-  app/            Next.js App Router pages (routes match the assignment table)
+  app/            Next.js App Router pages — routes mirror the assignment spec
+    properties/       browse + property details
+    auth/             register / login
+    dashboard/        tenant / landlord / admin, role-protected
+    payment/          success / cancel
   components/     Navbar, PropertyCard, StatusBadge, FilterBar, skeletons
-  lib/            api.ts (fetch wrapper), auth-context.tsx, toast-context.tsx
-  types/          Shared TypeScript types matching the Prisma schema
-  middleware.ts   Route protection by role, reading the auth cookie
+  lib/            api.ts (typed fetch wrapper), auth-context.tsx, toast-context.tsx
+  types/          Shared TypeScript types mirroring the backend's Prisma schema
+  middleware.ts   Role-based route protection, reads the auth cookie
 ```
+
+## API Integration Notes
+
+The backend wraps every response as `{ success, message, meta, data }` and every error as `{ success: false, message }`. `src/lib/api.ts` unwraps `data` automatically; use `apiWithMeta()` when you also need `meta.total` for pagination.
+
+Key endpoint mappings:
+
+| Feature | Endpoint |
+|---|---|
+| Register / Login | `POST /auth/register`, `POST /auth/login` → `{ user, token }` |
+| Browse properties | `GET /properties?location=&type=&minPrice=&maxPrice=` |
+| Property details | `GET /properties/:id` |
+| Request to rent | `POST /rentals` · tenant history `GET /rentals` |
+| Landlord listings | `GET/POST /landlord/properties` |
+| Landlord requests | `GET /landlord/requests` · `PATCH /landlord/requests/:id` |
+| Start payment | `POST /payments/create` → Stripe `checkoutUrl` |
+| Verify payment | `GET /payments/verify/:sessionId` |
+| Admin users | `GET/PATCH /admin/users` (`status: ACTIVE \| BANNED`) |
+
+## Demo Admin Credentials
+
+```
+Email:    admin@rentnest.com
+Password: admin123
+```
+
+
+---
+
+Built by Sara as part of a full-stack rental marketplace assignment (frontend consumes [RentNest backend](https://rentnest-backend-seven.vercel.app/api-docs)).
