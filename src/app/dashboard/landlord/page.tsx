@@ -5,7 +5,7 @@ import Link from "next/link";
 import { api } from "@/lib/api";
 import { useAuth } from "@/lib/auth-context";
 import type { Property, RentalRequest } from "@/types";
-import PropertyCard from "@/components/PropertyCard";
+import LandlordPropertyCard from "@/components/LandlordPropertyCard";
 import { PropertyGridSkeleton } from "@/components/PropertySkeleton";
 
 export default function LandlordDashboardPage() {
@@ -58,7 +58,7 @@ export default function LandlordDashboardPage() {
           </Link>
           <Link
             href="/dashboard/landlord/properties/new"
-            className="rounded-sm bg-ink px-4 py-2.5 text-sm font-medium text-white hover:bg-ink-dark"
+            className="rounded-sm bg-teal px-4 py-2.5 text-sm font-medium text-white hover:bg-teal-dark"
           >
             + New listing
           </Link>
@@ -76,7 +76,7 @@ export default function LandlordDashboardPage() {
         </div>
         <div className="rounded-sm border border-ink/10 bg-white p-5">
           <p className="text-xs uppercase tracking-wide text-ink/50">Earnings to date</p>
-          <p className="mt-1 font-display text-3xl italic text-ink-dark">৳{earnings.toLocaleString()}</p>
+          <p className="mt-1 font-display text-3xl italic text-teal-dark">৳{earnings.toLocaleString()}</p>
         </div>
       </div>
 
@@ -88,7 +88,7 @@ export default function LandlordDashboardPage() {
           {!loading && !errorMsg && properties.length === 0 && (
             <div className="rounded-sm border border-dashed border-ink/20 bg-white p-10 text-center text-ink/60">
               You haven't listed a property yet.{" "}
-              <Link href="/dashboard/landlord/properties/new" className="font-medium text-ink-dark hover:underline">
+              <Link href="/dashboard/landlord/properties/new" className="font-medium text-teal-dark hover:underline">
                 Create your first listing →
               </Link>
             </div>
@@ -96,7 +96,11 @@ export default function LandlordDashboardPage() {
           {!loading && !errorMsg && properties.length > 0 && (
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {properties.map((p) => (
-                <PropertyCard key={p.id} property={p} />
+                <LandlordPropertyCard
+                  key={p.id}
+                  property={p}
+                  onDeleted={(id) => setProperties((prev) => prev.filter((prop) => prop.id !== id))}
+                />
               ))}
             </div>
           )}

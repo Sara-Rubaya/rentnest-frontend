@@ -49,7 +49,7 @@ export default function RegisterPage() {
               key={r.value}
               onClick={() => setRole(r.value)}
               className={`rounded-sm border p-4 text-left focus-ring ${
-                role === r.value ? "border-ink bg-ink-light" : "border-ink/15 hover:border-ink/30"
+                role === r.value ? "border-teal bg-teal-light" : "border-ink/15 hover:border-ink/30"
               }`}
             >
               <p className="font-medium text-ink">{r.label}</p>
@@ -93,7 +93,7 @@ export default function RegisterPage() {
         <button
           type="submit"
           disabled={submitting}
-          className="w-full rounded-sm bg-ink px-5 py-3 font-medium text-white focus-ring hover:bg-ink-dark disabled:opacity-60"
+          className="w-full rounded-sm bg-teal px-5 py-3 font-medium text-white focus-ring hover:bg-teal-dark disabled:opacity-60"
         >
           {submitting ? "Creating account…" : "Create account"}
         </button>
@@ -101,7 +101,7 @@ export default function RegisterPage() {
 
       <p className="mt-6 text-center text-sm text-ink/60">
         Already have an account?{" "}
-        <Link href="/auth/login" className="font-medium text-ink-dark hover:underline">
+        <Link href="/auth/login" className="font-medium text-teal-dark hover:underline">
           Log in
         </Link>
       </p>

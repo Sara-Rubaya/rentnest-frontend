@@ -58,7 +58,7 @@ export default function RequestToRentButton({
     <>
       <button
         onClick={() => setOpen(true)}
-        className="w-full rounded-sm bg-ink px-5 py-3 font-medium text-white focus-ring hover:bg-ink-dark"
+        className="w-full rounded-sm bg-teal px-5 py-3 font-medium text-white focus-ring hover:bg-teal-dark"
       >
         Request to rent
       </button>
@@ -96,7 +96,7 @@ export default function RequestToRentButton({
               <button
                 onClick={submitRequest}
                 disabled={submitting}
-                className="rounded-sm bg-ink px-5 py-2 text-sm font-medium text-white focus-ring hover:bg-ink-dark disabled:opacity-60"
+                className="rounded-sm bg-teal px-5 py-2 text-sm font-medium text-white focus-ring hover:bg-teal-dark disabled:opacity-60"
               >
                 {submitting ? "Sending…" : "Send request"}
               </button>

@@ -5,9 +5,6 @@ import { AuthProvider } from "@/lib/auth-context";
 import { ToastProvider } from "@/lib/toast-context";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import WhyChooseUs from "@/components/WhyChooseUs";
-import Achievements from "@/components/Achievements";
-import Reviews from "@/components/Reviews";
 
 const fraunces = Fraunces({
   subsets: ["latin"],
@@ -32,12 +29,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="font-body antialiased">
         <AuthProvider>
           <ToastProvider>
-            <Navbar />
-            <main className="min-h-[calc(100vh-72px)]">{children}</main>
-            <WhyChooseUs />
-            <Achievements />
-            <Reviews />
-            <Footer />
+            <div className="flex min-h-screen flex-col">
+              <Navbar />
+              <main className="flex-1">{children}</main>
+              <Footer />
+            </div>
           </ToastProvider>
         </AuthProvider>
       </body>

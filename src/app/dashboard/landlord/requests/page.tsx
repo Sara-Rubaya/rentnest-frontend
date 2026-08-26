@@ -80,7 +80,7 @@ export default function LandlordRequestsPage() {
                         <button
                           disabled={actingId === r.id}
                           onClick={() => updateStatus(r.id, "APPROVED")}
-                          className="rounded-sm bg-ink px-3 py-1.5 text-xs font-medium text-white hover:bg-ink-dark disabled:opacity-60"
+                          className="rounded-sm bg-teal px-3 py-1.5 text-xs font-medium text-white hover:bg-teal-dark disabled:opacity-60"
                         >
                           Approve
                         </button>

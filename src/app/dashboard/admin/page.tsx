@@ -17,6 +17,7 @@ export default function AdminDashboardPage() {
   const [loading, setLoading] = useState(true);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [actingId, setActingId] = useState<string | null>(null);
+  const [confirmDeleteId, setConfirmDeleteId] = useState<string | null>(null);
 
   useEffect(() => {
     let cancelled = false;
@@ -59,6 +60,22 @@ export default function AdminDashboardPage() {
     }
   }
 
+  async function deleteProperty(property: Property) {
+    const previous = properties;
+    setProperties((prev) => prev.filter((p) => p.id !== property.id));
+    setActingId(property.id);
+    try {
+      await api(`/admin/properties/${property.id}`, { method: "DELETE" });
+      show(`"${property.title}" removed`);
+    } catch (err) {
+      setProperties(previous);
+      show(err instanceof Error ? err.message : "Couldn't delete property", "error");
+    } finally {
+      setActingId(null);
+      setConfirmDeleteId(null);
+    }
+  }
+
   const tabs: { key: Tab; label: string; count: number }[] = [
     { key: "users", label: "Users", count: users.length },
     { key: "properties", label: "Properties", count: properties.length },
@@ -76,7 +93,7 @@ export default function AdminDashboardPage() {
             key={t.key}
             onClick={() => setTab(t.key)}
             className={`rounded-sm border p-5 text-left focus-ring ${
-              tab === t.key ? "border-ink bg-ink-light" : "border-ink/10 bg-white hover:border-ink/25"
+              tab === t.key ? "border-teal bg-teal-light" : "border-ink/10 bg-white hover:border-ink/25"
             }`}
           >
             <p className="text-xs uppercase tracking-wide text-ink/50">{t.label}</p>
@@ -122,7 +139,7 @@ export default function AdminDashboardPage() {
                         onClick={() => toggleBan(u)}
                         className={`rounded-sm px-3 py-1.5 text-xs font-medium disabled:opacity-60 ${
                           u.status === "BANNED"
-                            ? "bg-ink text-white hover:bg-ink-dark"
+                            ? "bg-teal text-white hover:bg-teal-dark"
                             : "border border-clay/30 text-clay hover:bg-clay/5"
                         }`}
                       >
@@ -147,6 +164,7 @@ export default function AdminDashboardPage() {
                 <th className="px-4 py-3">Landlord</th>
                 <th className="px-4 py-3">Price</th>
                 <th className="px-4 py-3">Available</th>
+                <th className="px-4 py-3 text-right">Action</th>
               </tr>
             </thead>
             <tbody>
@@ -157,6 +175,33 @@ export default function AdminDashboardPage() {
                   <td className="px-4 py-3 text-ink/70">{p.landlord?.name}</td>
                   <td className="px-4 py-3 text-ink/70">৳{p.price.toLocaleString()}</td>
                   <td className="px-4 py-3 text-ink/70">{p.isAvailable ? "Yes" : "No"}</td>
+                  <td className="px-4 py-3 text-right">
+                    {confirmDeleteId === p.id ? (
+                      <div className="flex justify-end gap-2">
+                        <button
+                          disabled={actingId === p.id}
+                          onClick={() => deleteProperty(p)}
+                          className="rounded-sm bg-clay px-3 py-1.5 text-xs font-medium text-white hover:bg-clay/90 disabled:opacity-60"
+                        >
+                          {actingId === p.id ? "Deleting…" : "Confirm"}
+                        </button>
+                        <button
+                          disabled={actingId === p.id}
+                          onClick={() => setConfirmDeleteId(null)}
+                          className="rounded-sm border border-ink/15 px-3 py-1.5 text-xs text-ink/60 hover:text-ink"
+                        >
+                          Cancel
+                        </button>
+                      </div>
+                    ) : (
+                      <button
+                        onClick={() => setConfirmDeleteId(p.id)}
+                        className="rounded-sm border border-clay/30 px-3 py-1.5 text-xs font-medium text-clay hover:bg-clay/5"
+                      >
+                        Delete
+                      </button>
+                    )}
+                  </td>
                 </tr>
               ))}
             </tbody>

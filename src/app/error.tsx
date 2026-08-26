@@ -13,7 +13,7 @@ export default function GlobalError({
       <p className="mt-3 text-sm text-ink/60">{error.message || "An unexpected error occurred."}</p>
       <button
         onClick={reset}
-        className="mt-6 rounded-sm bg-ink px-5 py-2.5 text-sm font-medium text-white focus-ring hover:bg-ink-dark"
+        className="mt-6 rounded-sm bg-teal px-5 py-2.5 text-sm font-medium text-white focus-ring hover:bg-teal-dark"
       >
         Try again
       </button>

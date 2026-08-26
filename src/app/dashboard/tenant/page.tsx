@@ -42,7 +42,7 @@ export default function TenantDashboardPage() {
       {!loading && !errorMsg && requests.length === 0 && (
         <div className="mt-8 rounded-sm border border-dashed border-ink/20 bg-white p-10 text-center text-ink/60">
           You haven't requested any properties yet.{" "}
-          <Link href="/properties" className="font-medium text-ink-dark hover:underline">
+          <Link href="/properties" className="font-medium text-teal-dark hover:underline">
             Browse listings →
           </Link>
         </div>
@@ -56,7 +56,7 @@ export default function TenantDashboardPage() {
                 <p className="font-display text-lg text-ink">{req.property?.title || "Property"}</p>
                 <p className="text-sm text-ink/60">{req.property?.location}</p>
                 {req.property && (
-                  <p className="mt-1 text-sm font-medium text-ink-dark">
+                  <p className="mt-1 text-sm font-medium text-teal-dark">
                     ৳{req.property.price.toLocaleString()} / month
                   </p>
                 )}
@@ -67,7 +67,7 @@ export default function TenantDashboardPage() {
             {req.status === "APPROVED" && !req.payment && (
               <Link
                 href={`/dashboard/tenant/requests/${req.id}/pay`}
-                className="mt-4 inline-block rounded-sm bg-ink px-4 py-2 text-sm font-medium text-white hover:bg-ink-dark"
+                className="mt-4 inline-block rounded-sm bg-teal px-4 py-2 text-sm font-medium text-white hover:bg-teal-dark"
               >
                 Proceed to payment
               </Link>

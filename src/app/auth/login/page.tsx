@@ -60,7 +60,7 @@ function LoginForm() {
         <button
           type="submit"
           disabled={submitting}
-          className="w-full rounded-sm bg-ink px-5 py-3 font-medium text-white focus-ring hover:bg-ink-dark disabled:opacity-60"
+          className="w-full rounded-sm bg-teal px-5 py-3 font-medium text-white focus-ring hover:bg-teal-dark disabled:opacity-60"
         >
           {submitting ? "Logging in…" : "Log in"}
         </button>
@@ -68,7 +68,7 @@ function LoginForm() {
 
       <p className="mt-6 text-center text-sm text-ink/60">
         New to RentNest?{" "}
-        <Link href="/auth/register" className="font-medium text-ink-dark hover:underline">
+        <Link href="/auth/register" className="font-medium text-teal-dark hover:underline">
           Create an account
         </Link>
       </p>
